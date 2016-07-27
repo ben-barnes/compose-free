@@ -6,8 +6,7 @@ import scala.language.{ higherKinds, implicitConversions, postfixOps }
 
 object Main extends SafeApp {
 
-  /* Injectable lets us lift an F[A] into a Coproduct[F, G, A] when there exists
-   *  an injection relationship between F and G, F :<: G.
+  /* Injectable lets us lift an F[A] into a Coproduct containing F.
    */
   trait Injectable[Self[_], A] { this: Self[A] => 
     def inject[F[_]] ( implicit I: Self :<: F ): Free[F, A] =
